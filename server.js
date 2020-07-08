@@ -46,6 +46,8 @@ app.get("/bookings/:id", (req, res) => {
 });
 app.delete("/bookings/:id", (req, res) => {
   const delBookingId = req.params.id;
-  const bookings = bookings.filter((booking) => booking.id !== delBookingId);
-  res.json(bookings);
+  const filterBookings = bookings.filter(
+    (booking) => booking.id !== delBookingId
+  );
+  res.json(filterBookings);
 });
