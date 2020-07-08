@@ -20,10 +20,9 @@ const listener = app.listen(process.env.PORT, function () {
   console.log("Your app is listening on port " + listener.address().port);
 });
 
-app /
-  get("/bookings", (req, res) => {
-    res.json(bookings);
-  });
+app.get("/bookings", (req, res) => {
+  res.json(bookings);
+});
 app.post("/bookings", (req, res) => {
   const newBooking = {
     id: 1,
