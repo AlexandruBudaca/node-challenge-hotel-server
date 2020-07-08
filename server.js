@@ -50,10 +50,12 @@ app.delete("/bookings/:id", (req, res) => {
   const filterBookings = bookings.filter(
     (booking) => booking.id === delBookingId
   );
-  if (filterBookings) {
-    const index = bookings.indexOf(filterBookings);
-    bookings.splice(index);
+
+  const index = bookings.indexOf(filterBookings);
+  if (index !== -1) {
+    bookings.splice(index, 1);
     res.json(bookings);
   }
+
   res.sendStatus(400);
 });
