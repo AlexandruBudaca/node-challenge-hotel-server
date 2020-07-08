@@ -45,7 +45,7 @@ app.get("/bookings/:id", (req, res) => {
   res.json(findBooking);
 });
 app.delete("/bookings/:id", (req, res) => {
-  const delBookingId = req.params.id;
+  const delBookingId = Number(req.params.id);
   const filterBookings = bookings.filter(
     (booking) => booking.id !== delBookingId
   );
