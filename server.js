@@ -42,7 +42,7 @@ app.post("/bookings", (req, res) => {
 app.get("/bookings/:id", (req, res) => {
   const bookingId = Number(req.params.id);
   const findBooking = bookings.find((booking) => booking.id === bookingId);
-  res.json(findBooking);
+  findBooking ? res.json(findBooking) : res.sendStatus(404);
 });
 app.delete("/bookings/:id", (req, res) => {
   const delBookingId = Number(req.params.id);
