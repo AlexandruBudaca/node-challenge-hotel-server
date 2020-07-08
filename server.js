@@ -37,10 +37,15 @@ app.post("/bookings", (req, res) => {
     checkOutDate: req.body.checkOutDate,
   };
   bookings.push(newBooking);
-  res.send(bookings);
+  res.json(bookings);
 });
 app.get("/bookings/:id", (req, res) => {
   const bookingId = Number(req.params.id);
   const findBooking = bookings.find((booking) => booking.id === bookingId);
   res.json(findBooking);
+});
+app.delete("/bookings/:id", (req, res) => {
+  const delBookingId = req.params.id;
+  const bookings = bookings.filter((booking) => booking.id !== delBookingId);
+  res.json(bookings);
 });
