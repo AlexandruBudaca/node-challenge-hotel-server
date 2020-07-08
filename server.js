@@ -52,7 +52,7 @@ app.delete("/bookings/:id", (req, res) => {
   );
   if (filterBookings) {
     const index = bookings.indexOf(filterBookings);
-    bookings.splice(index, 1);
+    bookings.splice(index);
     res.json(bookings);
   }
   res.sendStatus(400);
