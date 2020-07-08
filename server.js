@@ -48,13 +48,12 @@ app.delete("/bookings/:id", (req, res) => {
   const delBookingId = Number(req.params.id);
 
   const filterBookings = bookings.filter(
-    (booking) => booking.id === delBookingId
+    (booking) => booking.id !== delBookingId
   );
 
   const index = bookings.indexOf(filterBookings);
   if (index !== -1) {
-    bookings.splice(index, 1);
-    res.json(bookings);
+    res.json(bookings.splice(index, 1));
   }
 
   res.sendStatus(400);
