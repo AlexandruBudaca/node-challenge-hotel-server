@@ -1,6 +1,5 @@
 const express = require("express");
 const cors = require("cors");
-const moment = require("moment");
 
 const app = express();
 
@@ -34,9 +33,14 @@ app.post("/bookings", (req, res) => {
     surname: req.body.surname,
     email: req.body.email,
     roomId: Number(req.body.roomId),
-    checkInDate: moment(req.body.checkInDate).format(),
-    checkOutDate: moment(req.body.checkOutDate).format(),
+    checkInDate: req.body.checkInDate,
+    checkOutDate: req.body.checkOutDate,
   };
   bookings.push(newBooking);
   res.send(bookings);
+});
+app.get("bookings/:id", (req, res) => {
+  const bookingId = req.params.id;
+  const findBooking = bookings.find((booking) => booking.id === bookingId);
+  res.send(findBooking);
 });
