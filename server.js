@@ -49,5 +49,5 @@ app.delete("/bookings/:id", (req, res) => {
   const filterBookings = bookings.filter(
     (booking) => booking.id !== delBookingId
   );
-  res.json(filterBookings);
+  filterBookings ? res.json(filterBookings) : res.sendStatus(400);
 });
