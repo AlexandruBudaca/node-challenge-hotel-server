@@ -25,7 +25,10 @@ app.get("/bookings", (req, res) => {
 });
 app.post("/bookings", (req, res) => {
   const newBooking = {
-    id: 1,
+    id: Math.floor(
+      Math.random() * Math.floor(messages.length + 100),
+      messages.length
+    ),
     title: req.body.title,
     firstName: req.body.firstName,
     surname: req.body.surname,
