@@ -26,16 +26,16 @@ app.get("/bookings", (req, res) => {
 app.post("/bookings", (req, res) => {
   const newBooking = {
     id: Math.floor(
-      Math.random() * Math.floor(messages.length + 100),
-      messages.length
+      Math.random() * Math.floor(bookings.length + 100),
+      bookings.length
     ),
     title: req.body.title,
     firstName: req.body.firstName,
     surname: req.body.surname,
     email: req.body.email,
     roomId: Number(req.body.roomId),
-    checkInDate: moment(req.body.checkInDate),
-    checkOutDate: moment(req.body.checkOutDate),
+    checkInDate: moment(req.body.checkInDate).format(),
+    checkOutDate: moment(req.body.checkOutDate).format(),
   };
   bookings.push(newBooking);
   res.send(bookings);
