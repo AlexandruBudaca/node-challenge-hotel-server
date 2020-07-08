@@ -40,7 +40,7 @@ app.post("/bookings", (req, res) => {
   res.send(bookings);
 });
 app.get("/bookings/:id", (req, res) => {
-  const bookingId = req.params.id;
+  const bookingId = Number(req.params.id);
   const findBooking = bookings.find((booking) => booking.id === bookingId);
-  res.send(findBooking);
+  res.json(findBooking);
 });
