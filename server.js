@@ -10,7 +10,7 @@ app.use(cors());
 const bookings = require("./bookings.json");
 
 app.get("/", function (request, response) {
-  response.send("Hotel booking server.  Ask for /bookings, etc.");
+  response.send("Hotel booking server.  Ask for /bookings.");
 });
 
 // TODO add your routes and helper functions here
@@ -36,7 +36,16 @@ app.post("/bookings", (req, res) => {
     checkInDate: req.body.checkInDate,
     checkOutDate: req.body.checkOutDate,
   };
-  bookings.push(newBooking);
+  const checkKeys = newBooking.hasOwnProperty(
+    "title",
+    "fistName",
+    "surname",
+    "email",
+    "roomId",
+    "checkInDate",
+    "checkOutDate"
+  );
+  checkKeys ? bookings.push(newBooking) : res.sendStatus(400);
   res.json(bookings);
 });
 app.get("/bookings/:id", (req, res) => {
