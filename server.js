@@ -37,9 +37,7 @@ app.post("/bookings", (req, res) => {
     checkOutDate: req.body.checkOutDate,
   };
   const newBookingKeys = Object.keys(newBooking);
-  const checkKeys = newBookingKeys.every((key) =>
-    newBooking.hasOwnProperty(key)
-  );
+  const checkKeys = newBookingKeys.every((key) => key in newBooking);
   checkKeys ? bookings.push(newBooking) : res.sendStatus(400);
   res.json(bookings);
 });
