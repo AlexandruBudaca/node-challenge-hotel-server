@@ -36,11 +36,10 @@ app.post("/bookings", (req, res) => {
     checkInDate: req.body.checkInDate,
     checkOutDate: req.body.checkOutDate,
   };
-  const newBookingKeys = Object.keys(newBooking);
-  const checkKeys = newBookingKeys.every((key) => key in newBooking);
-  console.log(checkKeys);
-  checkKeys ? bookings.push(newBooking) : res.sendStatus(400);
-  res.json(bookings);
+  if (req.body.title) {
+    bookings.push(newBooking);
+  }
+  res.sendStatus(400);
 });
 app.get("/bookings/:id", (req, res) => {
   const bookingId = Number(req.params.id);
