@@ -38,8 +38,9 @@ app.post("/bookings", (req, res) => {
   };
   if (req.body.title) {
     bookings.push(newBooking);
+  } else {
+    res.sendStatus(400);
   }
-  res.sendStatus(400);
 });
 app.get("/bookings/:id", (req, res) => {
   const bookingId = Number(req.params.id);
