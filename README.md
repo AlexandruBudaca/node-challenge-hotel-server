@@ -1,6 +1,6 @@
 # Challenge: A Hotel Booking Server
 
-### Overview: what is this challenge?
+### Overview: what is this challenge
 
 In this challenge you must make an Express app which provides an API to manage a list of hotel bookings, in JSON format.
 
