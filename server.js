@@ -82,6 +82,11 @@ app.delete("/bookings/:id", (req, res) => {
   res.sendStatus(400);
 });
 app.get("/bookings/search", (req, res) => {
-  const termSearched = req.query;
-  const filterBookings = bookings.filter((booking) => booking);
+  const termSearched = req.query.search;
+  const filterBookings = bookings.find(
+    (booking) =>
+      booking.checkInDate === termSearched ||
+      booking.checkOutDate === termSearched
+  );
+  res.json(filterBookings);
 });
