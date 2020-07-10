@@ -36,7 +36,15 @@ app.post("/bookings", (req, res) => {
     checkInDate: req.body.checkInDate,
     checkOutDate: req.body.checkOutDate,
   };
-  if (req.body.title) {
+  if (
+    req.body.title &&
+    req.body.firstName &&
+    req.body.surname &&
+    req.body.email &&
+    req.body.roomId &&
+    req.body.checkInDate &&
+    req.body.checkOutDate
+  ) {
     bookings.push(newBooking);
     res.send({ success: true });
   } else {
