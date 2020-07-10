@@ -68,11 +68,20 @@ app.post("/bookings", (req, res) => {
 });
 app.get("/bookings/search", (req, res) => {
   const termSearched = moment(req.query.date).format("YYYY-MM-DD");
-  console.log(termSearched);
+
   const filterBookings = bookings.find(
     (booking) =>
       booking.checkInDate === termSearched ||
       booking.checkOutDate === termSearched
+  );
+  res.json(filterBookings);
+});
+app.get("/bookings/search/date", (req, res) => {
+  const termSearched = req.query.term;
+
+  const filterBookings = bookings.find(
+    (booking) =>
+      booking.firstName === termSearched || booking.firstName === termSearched
   );
   res.json(filterBookings);
 });
