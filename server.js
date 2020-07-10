@@ -50,6 +50,20 @@ app.post("/bookings", (req, res) => {
   } else {
     res.sendStatus(400);
   }
+  if (
+    req.body.title === "" &&
+    req.body.firstName === "" &&
+    req.body.surname === "" &&
+    req.body.email === "" &&
+    req.body.roomId === "" &&
+    req.body.checkInDate === "" &&
+    req.body.checkOutDate
+  ) {
+    bookings.push(newBooking);
+    res.send({ success: true });
+  } else {
+    res.sendStatus(400);
+  }
 });
 app.get("/bookings/:id", (req, res) => {
   const bookingId = Number(req.params.id);
