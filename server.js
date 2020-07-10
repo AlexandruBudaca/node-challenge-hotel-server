@@ -67,21 +67,21 @@ app.post("/bookings", (req, res) => {
   }
 });
 app.get("/bookings/search", (req, res) => {
-  const termSearched = moment(req.query.date).format("YYYY-MM-DD");
-
+  const dateSearched = moment(req.query.date).format("YYYY-MM-DD");
   const filterBookings = bookings.find(
     (booking) =>
-      booking.checkInDate === termSearched ||
-      booking.checkOutDate === termSearched
+      booking.checkInDate === dateSearched ||
+      booking.checkOutDate === dateSearched
   );
   res.json(filterBookings);
 });
-app.get("/bookings/search/date", (req, res) => {
+app.get("/bookings/search", (req, res) => {
   const termSearched = req.query.term;
-
   const filterBookings = bookings.find(
     (booking) =>
-      booking.firstName === termSearched || booking.firstName === termSearched
+      booking.firstName.includes(termSearched) ||
+      booking.surname.includes(termSearched) ||
+      booking.email.includes(termSearched)
   );
   res.json(filterBookings);
 });
