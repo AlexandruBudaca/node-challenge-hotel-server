@@ -68,6 +68,7 @@ app.post("/bookings", (req, res) => {
 });
 app.get("/bookings/search", (req, res) => {
   const termSearched = moment(req.query.date).format("YYYY/MM/DD");
+  console.log(termSearched);
   const filterBookings = bookings.find(
     (booking) =>
       booking.checkInDate === termSearched ||
