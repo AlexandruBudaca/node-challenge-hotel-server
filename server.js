@@ -67,6 +67,16 @@ app.post("/bookings", (req, res) => {
   }
 });
 app.get("/bookings/search", (req, res) => {
+  const termSearched = req.query.term.toLoweCase();
+  const filterBookings = bookings.find(
+    (booking) =>
+      booking.firstName.toLoweCase().includes(termSearched) ||
+      booking.surname.toLoweCase().includes(termSearched) ||
+      booking.email.toLoweCase().includes(termSearched)
+  );
+  res.json(filterBookings);
+});
+app.get("/bookings/search", (req, res) => {
   const dateSearched = moment(req.query.date).format("YYYY-MM-DD");
   const filterBookings = bookings.find(
     (booking) =>
@@ -75,16 +85,7 @@ app.get("/bookings/search", (req, res) => {
   );
   res.json(filterBookings);
 });
-app.get("/bookings/search", (req, res) => {
-  const termSearched = req.query.term;
-  const filterBookings = bookings.find(
-    (booking) =>
-      booking.firstName.includes(termSearched) ||
-      booking.surname.includes(termSearched) ||
-      booking.email.includes(termSearched)
-  );
-  res.json(filterBookings);
-});
+
 app.get("/bookings/:id", (req, res) => {
   const bookingId = Number(req.params.id);
   const findBooking = bookings.find((booking) => booking.id === bookingId);
