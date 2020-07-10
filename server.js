@@ -68,13 +68,13 @@ app.post("/bookings", (req, res) => {
 });
 app.get("/bookings/search", (req, res) => {
   const termSearched = req.query.term.toLoweCase();
-  const filterBookings = bookings.find(
+  const findBookings = bookings.find(
     (booking) =>
       booking.firstName.toLoweCase().includes(termSearched) ||
       booking.surname.toLoweCase().includes(termSearched) ||
       booking.email.toLoweCase().includes(termSearched)
   );
-  res.json(filterBookings);
+  res.json(findBookings);
 });
 app.get("/bookings/date/search", (req, res) => {
   const dateSearched = moment(req.query.date).format("YYYY-MM-DD");
