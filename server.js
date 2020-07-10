@@ -81,3 +81,7 @@ app.delete("/bookings/:id", (req, res) => {
   }
   res.sendStatus(400);
 });
+app.get("/bookings/search", (req, res) => {
+  const termSearched = req.query;
+  const filterBookings = bookings.filter((booking) => booking);
+});
