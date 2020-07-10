@@ -83,7 +83,7 @@ app.delete("/bookings/:id", (req, res) => {
   res.sendStatus(400);
 });
 app.get("/bookings/search", (req, res) => {
-  const termSearched = moment(req.query.date).format("YYYY/MM/DD");
+  const termSearched = req.query.date;
   const filterBookings = bookings.find(
     (booking) =>
       booking.checkInDate === termSearched ||
