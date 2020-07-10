@@ -77,9 +77,9 @@ app.get("/bookings/date/search", (req, res) => {
   res.json(filterBookings);
 });
 app.get("/bookings/search", (req, res) => {
-  const termSearched = req.query.term.toLoweCase();
+  const termSearched = req.query.term;
   const findBookings = bookings.find((booking) =>
-    booking.firstName.toLoweCase().includes(termSearched)
+    booking.firstName.toLoweCase().includes(termSearched.toLoweCase())
   );
   res.json(findBookings);
 });
