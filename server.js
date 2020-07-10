@@ -66,6 +66,15 @@ app.post("/bookings", (req, res) => {
     res.sendStatus(400);
   }
 });
+app.get("/bookings/search", (req, res) => {
+  const termSearched = moment(req.query.date).format("YYYY/MM/DD");
+  const filterBookings = bookings.find(
+    (booking) =>
+      booking.checkInDate === termSearched ||
+      booking.checkOutDate === termSearched
+  );
+  res.json(filterBookings);
+});
 app.get("/bookings/:id", (req, res) => {
   const bookingId = Number(req.params.id);
   const findBooking = bookings.find((booking) => booking.id === bookingId);
@@ -81,13 +90,4 @@ app.delete("/bookings/:id", (req, res) => {
     res.json(filterBookings);
   }
   res.sendStatus(400);
-});
-app.get("/bookings/search", (req, res) => {
-  const termSearched = req.query.date;
-  const filterBookings = bookings.find(
-    (booking) =>
-      booking.checkInDate === termSearched ||
-      booking.checkOutDate === termSearched
-  );
-  res.json(filterBookings);
 });
