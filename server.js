@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const moment = require("moment");
 
 const app = express();
 
@@ -33,8 +34,8 @@ app.post("/bookings", (req, res) => {
     surname: req.body.surname,
     email: req.body.email,
     roomId: Number(req.body.roomId),
-    checkInDate: req.body.checkInDate,
-    checkOutDate: req.body.checkOutDate,
+    checkInDate: moment(req.body.checkInDate).format("YYYY/MM/DD"),
+    checkOutDate: moment(req.body.checkOutDate).format("YYYY/MM/DD"),
   };
   if (
     req.body.title &&
@@ -82,7 +83,7 @@ app.delete("/bookings/:id", (req, res) => {
   res.sendStatus(400);
 });
 app.get("/bookings/search", (req, res) => {
-  const termSearched = req.query.search;
+  const termSearched = moment(req.query.date).format("YYYY/MM/DD");
   const filterBookings = bookings.find(
     (booking) =>
       booking.checkInDate === termSearched ||
