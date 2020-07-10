@@ -70,9 +70,7 @@ app.get("/search", (req, res) => {
   const termSearched = moment(req.query.date).format("YYYY/MM/DD");
   console.log(termSearched);
   const filterBookings = bookings.find(
-    (booking) =>
-      booking.checkInDate === termSearched ||
-      booking.checkOutDate === termSearched
+    (booking) => booking.checkInDate === termSearched
   );
   res.json(filterBookings);
 });
