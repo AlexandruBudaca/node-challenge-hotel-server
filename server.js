@@ -76,7 +76,7 @@ app.get("/bookings/search", (req, res) => {
   );
   res.json(filterBookings);
 });
-app.get("/bookings/search", (req, res) => {
+app.get("/bookings/date/search", (req, res) => {
   const dateSearched = moment(req.query.date).format("YYYY-MM-DD");
   const filterBookings = bookings.find(
     (booking) =>
