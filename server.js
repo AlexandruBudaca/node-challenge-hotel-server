@@ -78,11 +78,8 @@ app.get("/bookings/date/search", (req, res) => {
 });
 app.get("/bookings/search", (req, res) => {
   const termSearched = req.query.term.toLoweCase();
-  const findBookings = bookings.find(
-    (booking) =>
-      booking.firstName.toLoweCase().includes(termSearched) ||
-      booking.surname.toLoweCase().includes(termSearched) ||
-      booking.email.toLoweCase().includes(termSearched)
+  const findBookings = bookings.find((booking) =>
+    booking.firstName.toLoweCase().includes(termSearched)
   );
   res.json(findBookings);
 });
