@@ -20,7 +20,11 @@ app.get("/bookings", (req, res) => {
     const db = client.db("hotel");
     const collection = db.collection("bookings");
     collection.find().toArray((err, booking) => {
-      err ? res.sendStatus(404).send("Bookings not found!") : res.send(booking);
+      if (err) {
+        res.send({ message: "Not found" });
+      } else {
+        res.send(booking);
+      }
     });
   });
 });
@@ -93,9 +97,11 @@ app.get("/bookings/search?", (req, res) => {
         ],
       })
       .toArray((err, booking) => {
-        err
-          ? res.sendStatus(404).send({ message: "Bookings not found!" })
-          : res.send(booking);
+        if (err) {
+          res.send({ message: "Not found" });
+        } else {
+          res.send(booking);
+        }
       });
   });
 });
