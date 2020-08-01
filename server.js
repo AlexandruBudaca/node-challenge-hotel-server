@@ -79,33 +79,49 @@ app.post("/bookings", (req, res) => {
   });
 });
 
-app.get("/bookings/search", (req, res) => {
+app.get("/bookings/search?", (req, res) => {
   client.connect(() => {
     const db = client.db("hotel");
     const collection = db.collection("bookings");
-    collection.find().toArray((err, booking) => {
-      err
-        ? res.sendStatus(404).send({ message: "Bookings not found!" })
-        : res.send(booking);
-    });
+
+    const textTerm = req.query.text;
+    collection
+      .find({
+        $or: [
+          { firstName: { $regex: `${textTerm}`, $options: "i" } },
+          { surname: { $regex: `${textTerm}`, $options: "i" } },
+        ],
+      })
+      .toArray((err, booking) => {
+        err
+          ? res.sendStatus(404).send({ message: "Bookings not found!" })
+          : res.send(booking);
+      });
   });
 });
 
-app.get("/bookings/:id", (req, res) => {
-  const bookingId = Number(req.params.id);
-  const findBooking = bookings.find((booking) => booking.id === bookingId);
-  findBooking ? res.json(findBooking) : res.sendStatus(400);
-});
 app.delete("/bookings/:id", (req, res) => {
-  const delBookingId = Number(req.params.id);
-  const findBooking = bookings.find((booking) => booking.id === delBookingId);
-  if (findBooking) {
-    const filterBookings = bookings.filter(
-      (booking) => booking.id !== findBooking.id
-    );
-    res.json(filterBookings);
-  }
-  res.sendStatus(400);
+  client.connect(() => {
+    const db = client.db("hotel");
+    const collection = db.collection("bookings");
+
+    let id;
+    try {
+      id = new mongodb.ObjectID(req.params.id);
+    } catch (error) {
+      res.sendStatus(400);
+      return;
+    }
+    const searchBookingId = { _id: id };
+
+    collection.deleteOne(searchBookingId, (err, booking) => {
+      if (err) {
+        res.send(err);
+      } else {
+        res.send({ message: "Message deleted successfully!" });
+      }
+    });
+  });
 });
 
 const listener = app.listen(process.env.PORT || 5000, function () {
