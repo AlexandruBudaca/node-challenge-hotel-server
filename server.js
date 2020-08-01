@@ -83,12 +83,12 @@ app.post("/bookings", (req, res) => {
   });
 });
 
-app.get("/bookings/search?", (req, res) => {
+app.get("/bookings/search/:text", (req, res) => {
   client.connect(() => {
     const db = client.db("hotel");
     const collection = db.collection("bookings");
 
-    const textTerm = req.query.text;
+    const textTerm = req.params.text;
     collection
       .find({
         $or: [
