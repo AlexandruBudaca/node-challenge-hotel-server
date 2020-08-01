@@ -98,7 +98,7 @@ app.get("/bookings/search/:text", (req, res) => {
       })
       .toArray((err, booking) => {
         if (err) {
-          res.send({ message: "Not found" });
+          res.send(err);
         } else {
           res.send(booking);
         }
